@@ -332,7 +332,7 @@ public abstract class ExcelExportBase extends ExcelUtilBase {
                     "起始行坐标点：{" + startRowNum + "},\n" +
                     "起始列坐标点：{" + startCellNum + "},\n" +
                     "结束行坐标点：{" + endRowNum + "},\n" +
-                    "结束列坐标点：{" + endCellNum + "}");
+                    "结束列坐标点：{" + endCellNum + "} ");
         }
     }
 
