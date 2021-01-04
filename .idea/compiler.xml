@@ -10,5 +10,8 @@
         <module name="huali-util" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="huali-ums" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
