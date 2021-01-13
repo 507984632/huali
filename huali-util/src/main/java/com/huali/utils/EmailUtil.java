@@ -55,7 +55,7 @@ public class EmailUtil {
         System.out.println(" ");
     }
 
-    private EmailUtil(){
+    private EmailUtil() {
     }
 
     /**
@@ -71,7 +71,7 @@ public class EmailUtil {
      *                    发送的标题
      * @param content     发送邮件的内容
      */
-    private static void sendEmail(String userName, String passWord, String fromEmail, String addresEmail, String subject, String content) throws MessagingException {
+    public static void sendEmail(String userName, String passWord, String fromEmail, String addresEmail, String subject, String content) throws MessagingException {
         log.info("**********************************发送邮件开始**********************************");
 
         Properties props = new Properties();
