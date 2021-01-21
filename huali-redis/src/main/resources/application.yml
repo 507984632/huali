@@ -1,0 +1,40 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: huali-redis
+
+  redis:
+    host: 192.168.2.13 # redis 的宿主机的ip
+    port: 6379 # redis 的端口 默认 6379
+    #redis 的密码，默认为 空
+    password:
+    jedis:
+      pool:
+        max-active: 8 # redis 连接池最大链接数 （<=0 则没有限制）
+    database: 0 # 这个是reids 16 库中的第几个库
+
+  datasource:
+    druid:
+      url: jdbc:mysql://192.168.2.13:3306/huali?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=Asia/Shanghai&useSSL=false
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      type: com.alibaba.druid.pool.DruidDataSource
+      # 默认 true 为 true 时 validationQuery 必须设为非空字符串
+      # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-on-borrow: false
+      # 默认 true 为 true 时 validationQuery 必须设为非空字符串
+      # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-while-idle: true
+      # 默认 true 为 true 时 validationQuery 必须设为非空字符串
+      # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-on-return: false
+      # 用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，
+      # testOnBorrow、testOnReturn、testWhileIdle都不会起作用。
+      validation-query: select 1
+
+mybatis:
+  mapper-locations: classpath:**/*.xml
+  type-aliases-package: com.huali.**.model
