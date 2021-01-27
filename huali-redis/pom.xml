@@ -47,6 +47,10 @@
             <artifactId>huali-util</artifactId>
             <version>master</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
     </dependencies>
 
     <!--  保证不会将.xml 的mapper 文件忽略掉  -->

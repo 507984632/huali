@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huali.utils.base.mapper.FieldEditLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.huali.utils.base.model.FieldEditLog">
+        <result column="id_" property="id"/>
+        <result column="class_name" property="className"/>
+        <result column="record_id" property="recordId"/>
+        <result column="field_name" property="fieldName"/>
+        <result column="old_value" property="oldValue"/>
+        <result column="new_value" property="newValue"/>
+        <result column="remark_" property="remark"/>
+        <result column="create_by" property="createBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+</mapper>

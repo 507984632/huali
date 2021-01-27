@@ -14,6 +14,14 @@ spring:
       pool:
         max-active: 8 # redis 连接池最大链接数 （<=0 则没有限制）
     database: 0 # 这个是reids 16 库中的第几个库
+    lettuce:
+      pool:
+        min-idle: 5
+        max-idle: 10
+        max-active: 10
+    replica:
+      enable: false
+      slaves:
 
   datasource:
     druid:
