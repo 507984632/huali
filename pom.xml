@@ -12,6 +12,7 @@
     <modules>
         <module>huali-util</module>
         <module>huali-redis</module>
+        <module>huali-demo</module>
     </modules>
 
     <properties>
