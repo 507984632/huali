@@ -37,11 +37,11 @@ public final class CheckTemplateUtil {
     public static void compared(CheckTemplateType name, XSSFSheet sheet) throws IOException {
         URL url = new URL(TEMPLATE_URL + URLEncoder.encode(name.getName(), Charsets.UTF_8_NAME) + ".xlsx");
         try (InputStream inputStream = url.openStream()) {
-            XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
-            XSSFSheet templateSheet = workbook.getSheetAt(0);
+            XSSFWorkbook templateWorkBook = new XSSFWorkbook(inputStream);
+            XSSFSheet templateSheet = templateWorkBook.getSheetAt(0);
 
-            XSSFRow row = templateSheet.getRow(0);
-            XSSFRow templateRow = sheet.getRow(0);
+            XSSFRow templateRow = templateSheet.getRow(0);
+            XSSFRow row = sheet.getRow(0);
 
             if (row.getPhysicalNumberOfCells() != templateRow.getPhysicalNumberOfCells()) {
                 throw new RuntimeException("模板有问题");
