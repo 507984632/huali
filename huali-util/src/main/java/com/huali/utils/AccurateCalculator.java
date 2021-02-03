@@ -4,6 +4,8 @@ package com.huali.utils;
 import java.math.BigDecimal;
 
 /**
+ * 精准计算机
+ *
  * @author lvws
  * @serial 2019/7/10
  */

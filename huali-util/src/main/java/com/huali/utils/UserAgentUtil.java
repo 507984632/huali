@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * <p>
- *
+ * 获得用户访问时，硬件设施（不太精准，因为用户可以更改设备的请求头）
  * </p>
  *
  * @author Yang_my
