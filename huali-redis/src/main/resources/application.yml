@@ -44,5 +44,5 @@ spring:
       validation-query: select 1
 
 mybatis:
-  mapper-locations: classpath:**/*.xml
+  mapper-locations: classpath:**/**Mapper.xml
   type-aliases-package: com.huali.**.model
