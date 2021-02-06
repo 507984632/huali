@@ -46,5 +46,5 @@ spring:
 mybatis:
   # 配置 mapper.xml 的路径 与 启动类中的 MapperScan 对应
   mapper-locations: classpath:**/**Mapper.xml
-  # 配置 实体类 的路径
+  # 配置 实体类 的路径 配置之后 mapper.xml 中 关于实体类的地方就可以不用写 完全限定名了
   type-aliases-package: com.huali.**.model
