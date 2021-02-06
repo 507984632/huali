@@ -44,5 +44,7 @@ spring:
       validation-query: select 1
 
 mybatis:
+  # 配置 mapper.xml 的路径 与 启动类中的 MapperScan 对应
   mapper-locations: classpath:**/**Mapper.xml
+  # 配置 实体类 的路径
   type-aliases-package: com.huali.**.model
