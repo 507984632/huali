@@ -19,9 +19,9 @@ spring:
         min-idle: 5
         max-idle: 10
         max-active: 10
-    replica:
-      enable: false
-      slaves:
+    replica: # redis 的从节点
+      enable: false # 是否开启从节点
+      slaves: # 从节点的 ip:端口 例如 localhost:6379, 可以是多个
 
   datasource:
     druid:
