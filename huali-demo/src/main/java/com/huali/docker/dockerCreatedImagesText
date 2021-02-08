@@ -1,0 +1,8 @@
+#Dockerfile
+
+FROM java:8
+VOLUME /tmp
+ADD testdemo1.jar testdemo1.jar
+RUN touch testdemo1.jar
+EXPOSE 8888
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","testdemo1.jar"]
