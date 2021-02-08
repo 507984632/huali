@@ -1,0 +1,14 @@
+huali:
+  shiro:
+    authc-enable: true
+    login-url: /unauthorized
+    unauthorized-url: /forbidden
+    cookie-name: HUALI-JSESSIONID
+    filter-chain-definitions: /index.jsp,/*.ico,/unauthorized,/forbidden,/swagger**,/swagger-resources/**,/webjars/**,/*/api-docs,/auth/login,/verify_code,/test,/test/**
+    redis:
+      session-enable: false
+      replica-enable: false
+      master-host:
+      master-port:
+      master-password:
+      slaves:

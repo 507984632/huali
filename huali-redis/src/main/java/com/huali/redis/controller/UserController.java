@@ -40,7 +40,7 @@ public class UserController extends BaseController {
 
     @GetMapping("createdUser/{id}")
     public ResponseEntity<JsonResult<?>> createdUser(@PathVariable Long id) {
-        User user = new User(id, id + 1 + "");
+        User user = new User(id, id + 1 + "", "123");
         // key 只能存储 string 类型的值
 //        redisTemplate.opsForValue().set("2", user);
         String key = user.getClass().getName() + ":" + user.getId();

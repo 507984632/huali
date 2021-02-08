@@ -27,4 +27,10 @@ public class UserServiceImpl implements UserService {
         }
         return userById;
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+
+        return null;
+    }
 }

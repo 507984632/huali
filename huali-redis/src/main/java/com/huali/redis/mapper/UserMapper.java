@@ -1,9 +1,11 @@
 package com.huali.redis.mapper;
 
 import com.huali.redis.model.User;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
-@Repository
+@Mapper
 public interface UserMapper {
     User getUserById(Long id);
+
+    User getUserByUsername(String username);
 }
