@@ -139,6 +139,10 @@ public class ShiroConfig {
      * 获得 Realm 对象
      * 可以自定义这个对象， 需要继承 org.apache.shiro.realm.AuthorizingRealm 对象
      * 然后这里就 new 自定义对象即可
+     * <p>
+     * 添加 @ConditionalOnMissingBean 注解就是当这个是一个备用的类，
+     * ---如果自己也创建了一个 Realm 的类继承 AuthorizingRealm 后重写方法，然后添加上
+     * ---@Component 注解后，就可以直接注入到这里或者说直接注入你自己定义的 Realm Bean
      */
     @Bean
     @ConditionalOnMissingBean
