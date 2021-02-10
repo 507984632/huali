@@ -10,7 +10,6 @@
         <result column="field_name" property="fieldName"/>
         <result column="old_value" property="oldValue"/>
         <result column="new_value" property="newValue"/>
-        <result column="remark_" property="remark"/>
         <result column="create_by" property="createBy"/>
         <result column="create_time" property="createTime"/>
         <result column="update_by" property="updateBy"/>

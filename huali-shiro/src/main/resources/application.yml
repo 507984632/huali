@@ -5,10 +5,3 @@ huali:
     unauthorized-url: /forbidden
     cookie-name: HUALI-JSESSIONID
     filter-chain-definitions: /unauthorized,/forbidden,/swagger**,/swagger**/**,/*/api-docs
-    redis:
-      session-enable: false
-      replica-enable: false
-      master-host:
-      master-port:
-      master-password:
-      slaves:

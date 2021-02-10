@@ -58,17 +58,6 @@ public class ShiroConfig {
     private ShiroProperties shiroProperties;
 
     /**
-     * 获得 配置 缓存的东西
-     *
-     * @return
-     */
-    @Bean
-    @ConditionalOnMissingBean(name = "shiroCacheManager")
-    public CacheManager shiroCacheManager() {
-        return new MemoryConstrainedCacheManager();
-    }
-
-    /**
      * 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
      * 配置以下两个bean(DefaultAdvisorAutoProxyCreator和AuthorizationAttributeSourceAdvisor)即可实现此功能
      */
@@ -123,13 +112,10 @@ public class ShiroConfig {
      */
     @Bean
     public DefaultWebSecurityManager defaultWebSecurityManager(@Qualifier("sessionManager") SessionManager sessionManager,
-                                                               @Qualifier("shiroCacheManager") CacheManager shiroCacheManager,
                                                                @Qualifier("realm") Realm realm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 配置 session 信息
         securityManager.setSessionManager(sessionManager);
-        // 配置 缓存 信息
-        securityManager.setCacheManager(shiroCacheManager);
         // 配置 realm 信息
         securityManager.setRealm(realm);
         return securityManager;
@@ -154,7 +140,7 @@ public class ShiroConfig {
      * 自定义的 Realm 对象
      */
 //    @Bean(name = "realm")
-//    public MyRealm realm() {
-//        return new MyRealm();
+//    public Realm realm() {
+//        return new Realm();
 //    }
 }

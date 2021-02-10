@@ -3,6 +3,8 @@ package com.huali.utils.base;
 import com.huali.utils.exception.BaseException;
 import com.huali.utils.web.JsonResult;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,6 +25,30 @@ public abstract class BaseController {
 
     protected <T> ResponseEntity<JsonResult<T>> success(T data) {
         return ResponseEntity.ok(new JsonResult<>(data).setMessage(JsonResult.SUCCESS_MSG));
+    }
+
+    /**
+     * 数据权限异常
+     */
+    @ResponseBody
+    @ExceptionHandler(value = {AuthenticationException.class})
+    public ResponseEntity<JsonResult<String>> authenticationExceptionHandler(Exception exception) {
+        log.error(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new JsonResult<String>().setMessage(exception.getMessage()));
+    }
+
+    /**
+     * Controller接口注解RequiresPermissions异常
+     */
+    @ResponseBody
+    @ExceptionHandler(value = {UnauthorizedException.class})
+    public ResponseEntity<JsonResult<String>> unauthorizedExceptionHandler(Exception exception) {
+        String message = exception.getMessage();
+        log.error(message);
+        String permission = message.substring(message.indexOf('[') + 1, message.length() - 1);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new JsonResult<String>().setMessage("对不起，您没有【" + permission + "】操作权限！"));
     }
 
     /**

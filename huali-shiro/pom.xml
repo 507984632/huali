@@ -22,18 +22,6 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
         </dependency>
-
-        <!-- shiro-redis -->
-        <dependency>
-            <groupId>org.crazycake</groupId>
-            <artifactId>shiro-redis</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.huali</groupId>
-            <artifactId>huali-redis</artifactId>
-            <version>master</version>
-        </dependency>
     </dependencies>
 
 </project>

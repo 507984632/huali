@@ -1,8 +1,5 @@
 # 让 SprongBoot 加载到 未扫描到的类 ，也可以是第三方的类
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.huali.shiro.config.MyRealm,\
   com.huali.shiro.config.ShiroConfig,\
   com.huali.shiro.config.ShiroProperties,\
-  com.huali.shiro.config.ShiroRedisConfig,\
-  com.huali.shiro.config.ShiroRedisProperties,\
   com.huali.shiro.config.ShiroSessionConfig

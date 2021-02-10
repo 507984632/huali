@@ -47,6 +47,9 @@ public class FieldEditLogService {
 
     @Autowired
     private FieldEditLogMapper fieldEditLogMapper;
+    /**
+     * TODO 通过pom 导入这个 需要在配置文件中配置这个东西 值就选其中之一即可
+     */
     @Value("${mybatis-plus.global-config.db-config.update-strategy}")
     private FieldStrategy fieldStrategy;
 
