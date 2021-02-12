@@ -1,20 +1,20 @@
 package com.huali.shiro.config;
 
+import com.huali.shiro.util.LoginUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 模拟调用框架中重写的这个类
@@ -38,14 +38,7 @@ public class Realm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        // 通过 subject 获得当前登录用户
-        Subject currentUser = SecurityUtils.getSubject();
-        // 在通过当前用户获得 登录认证时，传进来的 user 对象
-        User user = (User) currentUser.getPrincipal();
-        // 将用户所有的权限赋值进 shiro 中
-        info.addStringPermissions(user.getAuthoritys());
-        return info;
+        return LoginUtil.getCurrentUserAuthInfo();
     }
 
     /**
@@ -64,8 +57,25 @@ public class Realm extends AuthorizingRealm {
             return null;
         }
 
-        // 密码认证
-        return new SimpleAuthenticationInfo(user, user.getPassword(), "");
+        // 将用户的 id 放入 loginUtil 中
+        LoginUtil.saveCurrentUser(user.getId());
+        LoginUtil.saveCurrentUserAccount(user.getUsername());
+
+        // 简单授权对象
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        // 保证权限的唯一性
+        Set<String> permissions = new HashSet<>();
+        // 获得用户的所有 授权信息
+        List<String> authoritys = user.getAuthoritys();
+        // 检验授权信息的唯一性
+        permissions.addAll(authoritys);
+        // 将授权信息放入 简单授权对象中
+        info.addStringPermissions(permissions);
+        // 然后将这个简单授权对象放入 LoginUtil 中
+        LoginUtil.saveCurrentUserAuthInfo(info);
+
+        // shiro 的密码验证     参数是    存储在shiro中的数据，用户的密码， 用户的账号
+        return new SimpleAuthenticationInfo(user, user.getPassword(), user.getUsername());
     }
 }
 
