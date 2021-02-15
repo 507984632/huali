@@ -7,4 +7,7 @@ docker run -d \
 	-e RABBITMQ_DEFAULT_PASS=admin \
 	-p 5672:5672 \
 	-p 15672:15672 \
+	--restart=always \
+	-v /home/huali/mydocker/docker-rabbit-data/lib:/var/lib/rabbitmq \
+	-v /home/huali/mydocker/docker-rabbit-data/log:/var/log/rabbitmq \
 	rabbitmq
