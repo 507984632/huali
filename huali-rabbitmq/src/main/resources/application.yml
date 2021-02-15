@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: huali-rabbitmq
+  rabbitmq:
+    host: 192.168.2.13
+    port: 5672 # 默认5672可以不写
+    username: test
+    password: 1
+    virtual-host: ems # 虚拟主机的名称
