@@ -12,7 +12,7 @@
 ##rabbit2 中需要添加 --link rabbit:rabbit \ 参数， 显示写上 rabbit 节点的容器名，服务器名称
 ##rabbit3 中需要添加 --link rabbit2:rabbit2 \ 参数，原因同上
 #rabbitmq 该参数是指定 docker 容器中的镜像名称
-
+#
 # 进入容器内的操作
 #进入 rabbitmq 容器中 执行 rabbitmq-plugins enable rabbitmq_management 命令才能访问 15672 的控制台
 #搭建集群却看不到 节点
