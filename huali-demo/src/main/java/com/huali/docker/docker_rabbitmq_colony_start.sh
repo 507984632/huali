@@ -27,6 +27,7 @@
 ####参数“--ram”表示设置为内存节点，忽略次参数默认为磁盘节点。
 ####rabbit@ 是固定的， rabbit (master 的主机名[是主节点的服务器名]) 如果不是同一条机器需要在 /etc/host文件中添加对应的节点
 ### 4. rabbitmqctl start_app
+## 测试成不成功 可以在任意节点 rabbitmqctl cluster_status 命令执行
 docker run -d \
   --hostname rabbit \
   --name rabbit \
