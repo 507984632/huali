@@ -37,3 +37,17 @@ docker cp 镜像的名称:/文件的路径 ./
 docker inspect docker.io/mysql:5.7
 inspect：查看基本信息的命令
 docker.io/mysql5.7 这个是docker官网的msyql + 版本的基本信息(换成本地的就直接写软件名即可)
+
+docker 网络 用于 docker 中多个容器之间的网络通讯
+docker network <选项>
+1. 创建
+ docker network create 网络名称
+2. 查看网络列表
+  docker network ls
+3. 删除
+  docker network rm 网络名称/ 网络id
+4. 查看网络详情
+  docker network inspect 网络名称
+如何在启动容器的时候使用
+    例如：docker run -d -p3306:3306 --network 网络名称 mysql
+    就将mysql 添加到这个 网络中了
