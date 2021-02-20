@@ -7,7 +7,7 @@ docker run -d --name elasticsearch \
 	-p 9300:9300 \
 	--network ELK \
 	-e discovery.type="single-node" \
-	-e ES_JAVA_OPTS="-Xms512m -Xmx512m" \
+	-e ES_JAVA_OPTS="-Xms256m -Xmx256m" \
 	-v /home/huali/mydocker/docker-elasticsearch-data/data:/usr/share/elasticsearch/data \
 	elasticsearch:7.10.1
 
