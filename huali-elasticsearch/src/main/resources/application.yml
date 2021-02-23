@@ -1,0 +1,5 @@
+huali:
+  elasticsearch:
+    enable: false
+    hosts:
+      - 192.168.2.13:9200

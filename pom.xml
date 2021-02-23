@@ -16,6 +16,7 @@
         <module>huali-shiro</module>
         <module>huali-swagger</module>
         <module>huali-rabbitmq</module>
+        <module>huali-elasticsearch</module>
     </modules>
 
     <properties>
@@ -32,11 +33,23 @@
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
         <druid.version>1.1.16</druid.version>
         <mysql.version>8.0.22</mysql.version>
-        <commons.pool2.version>2.7.0</commons.pool2.version>
         <shiro-spring.version>1.7.1</shiro-spring.version>
         <shiro-redis.version>3.3.1</shiro-redis.version>
         <swagger-ui>3.0.0</swagger-ui>
         <rabbitmq.version>2.4.2</rabbitmq.version>
+        <elasticsearch.version>7.10.1</elasticsearch.version>
+        <fastjson.version>1.2.75</fastjson.version>
+        <pinyin4j.version>2.5.1</pinyin4j.version>
+        <javax.mail.version>1.6.2</javax.mail.version>
+        <aviator.version>4.1.2</aviator.version>
+        <poi-ooxml.version>4.1.2</poi-ooxml.version>
+        <commons.pool2.version>2.7.0</commons.pool2.version>
+        <commons-lang3.version>3.4</commons-lang3.version>
+        <commons-io.version>2.4</commons-io.version>
+        <commons-httpclient.version>3.0.1</commons-httpclient.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <uasparser.version>0.6.2</uasparser.version>
+        <jackson-annotations.version>2.11.3</jackson-annotations.version>
     </properties>
 
     <dependencyManagement>
@@ -85,12 +98,7 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
             </dependency>
-            <!--工具包-->
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-pool2</artifactId>
-                <version>${commons.pool2.version}</version>
-            </dependency>
+
             <!--shiro-->
             <dependency>
                 <groupId>org.apache.shiro</groupId>
@@ -111,11 +119,114 @@
                 <version>${swagger-ui}</version>
             </dependency>
 
+            <!--rabbitmq-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-amqp</artifactId>
                 <version>${rabbitmq.version}</version>
             </dependency>
+
+            <!--elasticsearch 高级客户端-->
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <!--fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!--    中文字符和拼音之间的转换    -->
+            <dependency>
+                <groupId>com.belerweb</groupId>
+                <artifactId>pinyin4j</artifactId>
+                <version>${pinyin4j.version}</version>
+            </dependency>
+
+            <!--    Email    -->
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>${javax.mail.version}</version>
+            </dependency>
+
+            <!--    表达式解析    -->
+            <dependency>
+                <groupId>com.googlecode.aviator</groupId>
+                <artifactId>aviator</artifactId>
+                <version>${aviator.version}</version>
+            </dependency>
+
+            <!--    poi，解析excel    -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi-ooxml.version}</version>
+            </dependency>
+
+            <!-- apache工具包 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons.pool2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-httpclient</groupId>
+                <artifactId>commons-httpclient</artifactId>
+                <version>${commons-httpclient.version}</version>
+            </dependency>
+
+            <!-- servlet -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!--    获得客户端系统内容    -->
+            <dependency>
+                <groupId>cz.mallat.uasparser</groupId>
+                <artifactId>uasparser</artifactId>
+                <version>${uasparser.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson-annotations.version}</version>
+            </dependency>
+
+            <!--爬取网页信息的jar包 还有tika爬取电影音频之类的jar包-->
+<!--            <dependency>-->
+<!--                <groupId>org.jsoup</groupId>-->
+<!--                <artifactId>jsoup</artifactId>-->
+<!--                <version>1.10.2</version>-->
+<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
