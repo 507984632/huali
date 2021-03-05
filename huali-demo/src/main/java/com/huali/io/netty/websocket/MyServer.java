@@ -21,6 +21,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
  *
  * @author Yang_my
  * @sine 2021/3/5
+ * @see MyTextWebSocketFrameHandler 自定义处理器
  */
 public class MyServer {
     public static void main(String[] args) throws Exception {
