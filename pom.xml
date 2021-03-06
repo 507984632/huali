@@ -17,6 +17,7 @@
         <module>huali-swagger</module>
         <module>huali-rabbitmq</module>
         <module>huali-elasticsearch</module>
+        <module>huali-websocket</module>
     </modules>
 
     <properties>
