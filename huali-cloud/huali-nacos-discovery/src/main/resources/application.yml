@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: huali-nacos-discovery # 服务名称，在注册中心中尤为重要
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 # nacos 的地址， 用于注册进 nacos 中
+        namespace: bc9a7508-5436-48e4-a58d-ad6e145eb243 # 用于注册进那个 命名空间中
+
+management: #关于动态刷新配置 暴露的端点
+  endpoints:
+    web:
+      exposure:
+        include: '*' #监控 这里需要用'' 因为是yml形式的
