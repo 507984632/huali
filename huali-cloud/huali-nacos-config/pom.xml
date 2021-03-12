@@ -18,6 +18,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--SpringCloud OpenFeign 服务端的远程调用-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
         <!--SpringCloud Alibaba Nacos 配置中心-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

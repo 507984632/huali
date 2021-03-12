@@ -1,3 +1,0 @@
-# 让 SprongBoot 加载到 未扫描到的类 ，也可以是第三方的类
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.huali.cloud.nacos.discovery.config.ApplicationConfig
