@@ -17,6 +17,7 @@
     <modules>
         <module>huali-nacos-discovery</module>
         <module>huali-nacos-config</module>
+        <module>huali-sentinel</module>
     </modules>
 
     <properties>

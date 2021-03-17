@@ -148,4 +148,56 @@ public class FileUtil {
             }
         }
     }
+
+
+    /**
+     * 将 来源地址中 当前目录下所有的文件coyp 的目标地址下。
+     *
+     * @param fromPath 来源地址的根目录
+     * @param aimsPath 目标地址的根目录
+     */
+    public static void copyAll(String fromPath, String aimsPath) {
+        try {
+            File temp = new File(fromPath);
+            copyFile(temp, "", aimsPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 递归调用的方法
+     *
+     * @param temp     当前文件(可能是文件夹或者文件)
+     * @param path     当前文件的新增路径
+     * @param aimsPath 目标地址
+     * @throws IOException .
+     */
+    private static void copyFile(File temp, String path, String aimsPath) throws IOException {
+        File[] files = temp.listFiles();
+        for (File file : files) {
+            String fileName = file.getName();
+            String newFileName = aimsPath + path + fileName;
+            if (file.isDirectory()) {
+                File copy = new File(newFileName);
+                if (!copy.exists()) {
+                    copy.mkdirs();
+                }
+                copyFile(file, path + fileName + "\\", aimsPath);
+            } else {
+                FileInputStream fis = new FileInputStream(file);
+                BufferedInputStream bis = new BufferedInputStream(fis);
+                FileOutputStream fos = new FileOutputStream(newFileName);
+                BufferedOutputStream bos = new BufferedOutputStream(fos);
+                int len;
+                while ((len = bis.read()) != -1) {
+                    bos.write(len);
+                    bos.flush();
+                }
+                bis.close();
+                fos.close();
+            }
+        }
+    }
+
 }
