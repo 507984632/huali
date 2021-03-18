@@ -156,10 +156,16 @@ public class FileUtil {
      * @param fromPath 来源地址的根目录
      * @param aimsPath 目标地址的根目录
      */
-    public static void copyAll(String fromPath, String aimsPath) {
+    public static void copyAll(String fromPath, String aimsPath, boolean del) {
         try {
+            if (!aimsPath.endsWith("\\")) {
+                aimsPath += "\\";
+            }
             File temp = new File(fromPath);
-            copyFile(temp, "", aimsPath);
+            if (!temp.exists() || !temp.isDirectory()) {
+                throw new RuntimeException("起始路径必须为文件夹,且保证它已经存在了");
+            }
+            copyFile(temp, "", aimsPath, del);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -173,7 +179,7 @@ public class FileUtil {
      * @param aimsPath 目标地址
      * @throws IOException .
      */
-    private static void copyFile(File temp, String path, String aimsPath) throws IOException {
+    private static void copyFile(File temp, String path, String aimsPath, boolean del) throws IOException {
         File[] files = temp.listFiles();
         for (File file : files) {
             String fileName = file.getName();
@@ -183,7 +189,7 @@ public class FileUtil {
                 if (!copy.exists()) {
                     copy.mkdirs();
                 }
-                copyFile(file, path + fileName + "\\", aimsPath);
+                copyFile(file, path + fileName + "\\", aimsPath, del);
             } else {
                 FileInputStream fis = new FileInputStream(file);
                 BufferedInputStream bis = new BufferedInputStream(fis);
@@ -196,6 +202,9 @@ public class FileUtil {
                 }
                 bis.close();
                 fos.close();
+                if (del) {
+                    file.delete();
+                }
             }
         }
     }

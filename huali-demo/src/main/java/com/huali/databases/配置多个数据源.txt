@@ -1,0 +1,4 @@
+多个数据源的理解：
+    MapperScan 是扫描 mapper 接口，application.xml 中有关于 mapper.xml 的配置。 xml 和 mapper 接口对应，
+        也可以变相理解为 一个mapper 对应一个xml 对应一个 DataSource, 配置多个数据源之后，再将 数据源对应的 扫描 xml mapper 的地方配置对应上
+        然后通过直接调用mapper层 或service层就可以达到访问多个数据库的数据
