@@ -3,16 +3,14 @@ package com.huali.utils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 
 /**
  * @author lvws
+ * @see Duration 用于计算时间的差
  * @since 2019/10/31.
  */
 public class DateUtil {
