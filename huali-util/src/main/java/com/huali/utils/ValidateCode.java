@@ -1,11 +1,13 @@
 package com.huali.utils;
 
+import sun.misc.BASE64Encoder;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -17,6 +19,8 @@ import java.util.Random;
  * @since 2020/11/23
  */
 public class ValidateCode {
+
+    public static final String BASE64_TITLE = "data:image/png;base64,";
     /**
      * 图片的宽度。
      */
@@ -167,14 +171,45 @@ public class ValidateCode {
     }
 
     /**
-     * 测试函数,默认生成到d盘
+     * 将图片信息通过 base64 的形式转成字符串
      *
-     * @param args
+     * @param images 图片本地路径s
+     * @return 将本地图片转成能供浏览器直接访问的字符串的形式，且是有序排列
      */
-    public static void main(String[] args) {
+    public static List<String> getBase64ByImage(String... images) {
+        List<String> imagesBase64String = new LinkedList<>();
+        for (String path : images) {
+            File file = new File(path);
+            if (!file.exists()) {
+                throw new RuntimeException(path + "图片不存在");
+            }
+            try (FileInputStream fis = new FileInputStream(path)) {
+                byte[] data = new byte[fis.available()];
+                fis.read(data);
+                BASE64Encoder encoder = new BASE64Encoder();
+                imagesBase64String.add(BASE64_TITLE + encoder.encode(data));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return imagesBase64String;
+    }
+
+    public static void main(String[] args) throws IOException {
+        // 测试将图片文件转为 base64字符串
+        String path = "C:\\Users\\myUser\\Desktop\\a.png";
+        for (String s : getBase64ByImage(path)) {
+            System.out.println(s);
+        }
+    }
+
+    /**
+     * 测试函数,默认生成到桌面盘
+     */
+    public static void test() {
         ValidateCode vCode = new ValidateCode(160, 40, 5, 150);
         try {
-            String path = "C:\\Users\\Administrator\\Desktop\\files\\a.png";
+            String path = "C:\\Users\\myUser\\Desktop\\a.png";
             System.out.println(vCode.getCode() + " >" + path);
             vCode.write(path);
         } catch (IOException e) {
