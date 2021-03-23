@@ -1,11 +1,13 @@
 package com.huali.utils;
 
+import com.huali.ImageType;
 import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -18,9 +20,8 @@ import java.util.Random;
  * @author Yang_my
  * @since 2020/11/23
  */
-public class ValidateCode {
+public class ValidateCode implements ImageType {
 
-    public static final String BASE64_TITLE = "data:image/png;base64,";
     /**
      * 图片的宽度。
      */
@@ -173,40 +174,42 @@ public class ValidateCode {
     /**
      * 将图片信息通过 base64 的形式转成字符串
      *
-     * @param images 图片本地路径s
-     * @return 将本地图片转成能供浏览器直接访问的字符串的形式，且是有序排列
+     * @param sources 图片本地路径s
+     * @return 将本地图片转成能供浏览器直接访问的字符串的形式，且是有序排列 可能会报出空指针
      */
-    public static List<String> getBase64ByImage(String... images) {
+    public static List<String> toBase64Str(List<String> sources) {
         List<String> imagesBase64String = new LinkedList<>();
-        for (String path : images) {
-            File file = new File(path);
-            if (!file.exists()) {
-                throw new RuntimeException(path + "图片不存在");
-            }
-            try (FileInputStream fis = new FileInputStream(path)) {
-                byte[] data = new byte[fis.available()];
-                fis.read(data);
-                BASE64Encoder encoder = new BASE64Encoder();
-                imagesBase64String.add(BASE64_TITLE + encoder.encode(data));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        for (String path : sources) {
+            imagesBase64String.add(toBase64Str(path));
         }
         return imagesBase64String;
     }
 
-    public static void main(String[] args) throws IOException {
-        // 测试将图片文件转为 base64字符串
-        String path = "C:\\Users\\myUser\\Desktop\\a.png";
-        for (String s : getBase64ByImage(path)) {
-            System.out.println(s);
+    /**
+     * 将图片转成 base64 的字符串
+     *
+     * @param source 这里指代的是图片在物理机中的地址
+     * @return base64 字符串 为 null 则说明该 source 路径下没有文件
+     */
+    public static String toBase64Str(String source) {
+        File file = new File(source);
+        if (file.exists()) {
+            try (FileInputStream fis = new FileInputStream(source)) {
+                byte[] data = new byte[fis.available()];
+                fis.read(data);
+                BASE64Encoder encoder = new BASE64Encoder();
+                return ImageType.BASE64_TITLE + encoder.encode(data);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        return null;
     }
 
     /**
      * 测试函数,默认生成到桌面盘
      */
-    public static void test() {
+    private static void test() {
         ValidateCode vCode = new ValidateCode(160, 40, 5, 150);
         try {
             String path = "C:\\Users\\myUser\\Desktop\\a.png";
@@ -214,6 +217,18 @@ public class ValidateCode {
             vCode.write(path);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void test2() {
+        // 测试将图片文件转为 base64字符串
+        String path = "C:\\Users\\myUser\\Desktop\\a.png";
+        String string = toBase64Str(path);
+        List<String> strings = toBase64Str(Arrays.asList(path));
+
+        System.out.println(string);
+        for (String s : strings) {
+            System.out.println(s);
         }
     }
 }

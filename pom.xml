@@ -52,6 +52,7 @@
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <uasparser.version>0.6.2</uasparser.version>
         <jackson-annotations.version>2.11.3</jackson-annotations.version>
+        <zxing.version>3.4.0</zxing.version>
     </properties>
 
     <dependencyManagement>
@@ -229,6 +230,18 @@
                 <artifactId>jsoup</artifactId>
                 <version>1.10.2</version>
             </dependency>-->
+
+            <!--google 的二维码生成jar包-->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>javase</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

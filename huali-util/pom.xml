@@ -12,6 +12,17 @@
     <artifactId>huali-util</artifactId>
 
     <dependencies>
+        <!--google 的二维码生成jar包-->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+        </dependency>
+
+
         <!--    中文字符和拼音之间的转换    -->
         <dependency>
             <groupId>com.belerweb</groupId>
