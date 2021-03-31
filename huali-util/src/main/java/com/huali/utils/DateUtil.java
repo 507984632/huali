@@ -136,4 +136,50 @@ public class DateUtil {
         return formatTime(new Date());
     }
 
+    /**
+     * 计算两个时间点的天数差
+     *
+     * @param startTime 第一个时间点
+     * @param endTime   第二个时间点
+     * @return int，即要计算的天数差
+     */
+    public static int dayDiff(LocalDateTime startTime, LocalDateTime endTime) {
+        if (startTime.isAfter(endTime) || startTime.compareTo(endTime) == 0) {
+            return 0;
+        }
+        //获取第一个时间点的时间戳对应的秒数
+        long startSecond = startTime.toEpochSecond(ZoneOffset.ofHours(0));
+        //获取第一个时间点在是1970年1月1日后的第几天
+        long startDays = startSecond / (60 * 60 * 24);
+        //获取第二个时间点的时间戳对应的秒数
+        long endSecond = endTime.toEpochSecond(ZoneOffset.ofHours(0));
+        //获取第二个时间点在是1970年1月1日后的第几天
+        long endDays = endSecond / (60 * 60 * 24);
+        //返回两个时间点的天数差
+        return (int) (endDays - startDays);
+    }
+
+    /**
+     * 获取两个时间点的月份差
+     *
+     * @param startTime 第一个时间点
+     * @param endTime   第二个时间点
+     * @return int，即需求的月数差
+     */
+    public static int monthDiff(LocalDateTime startTime, LocalDateTime endTime) {
+        if (startTime.isAfter(endTime) || startTime.compareTo(endTime) == 0) {
+            return 0;
+        }
+        //获取第一个时间点的月份
+        int startMonth = startTime.getMonthValue();
+        //获取第一个时间点的年份
+        int startYear = startTime.getYear();
+        //获取第一个时间点的月份
+        int endMonth = endTime.getMonthValue();
+        //获取第一个时间点的年份
+        int endYear = endTime.getYear();
+        //返回两个时间点的月数差
+        return (endYear - startYear) * 12 + (endMonth - startMonth);
+    }
+
 }
