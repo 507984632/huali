@@ -443,7 +443,7 @@ public class DiffDateUtil {
     private static <T> T requireNonNull(T t, String message) {
         if ((t == null || (t instanceof String))) {
             assert t != null;
-            if (((String) t).trim().equals("")) {
+            if ("".equals(((String) t).trim())) {
                 throw new NullPointerException(message);
             }
         }
