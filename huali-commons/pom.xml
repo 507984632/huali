@@ -9,19 +9,19 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>huali-shiro</artifactId>
+    <artifactId>huali-commons</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+    <packaging>pom</packaging>
 
-        <!--shiro-->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>huali-cloud</module>
+        <module>huali-elasticsearch</module>
+        <module>huali-rabbitmq</module>
+        <module>huali-redis</module>
+        <module>huali-shiro</module>
+        <module>huali-swagger</module>
+        <module>huali-websocket</module>
+    </modules>
+
 
 </project>

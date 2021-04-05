@@ -2,24 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <parent>
-        <artifactId>huali</artifactId>
+        <artifactId>huali-commons</artifactId>
         <groupId>com.huali</groupId>
         <version>master</version>
     </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>huali-cloud</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>huali-nacos-discovery</module>
         <module>huali-nacos-config</module>
+        <module>huali-nacos-discovery</module>
         <module>huali-sentinel</module>
     </modules>
 
+    <!--同一管理cloud组件版本-->
     <properties>
         <springcloud.springboot.version>2.3.2.RELEASE</springcloud.springboot.version>
         <springcloud.cloud.version>Hoxton.SR8</springcloud.cloud.version>

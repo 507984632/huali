@@ -11,14 +11,8 @@
 
     <modules>
         <module>huali-util</module>
-        <module>huali-redis</module>
         <module>huali-demo</module>
-        <module>huali-shiro</module>
-        <module>huali-swagger</module>
-        <module>huali-rabbitmq</module>
-        <module>huali-elasticsearch</module>
-        <module>huali-websocket</module>
-        <module>huali-cloud</module>
+        <module>huali-commons</module>
     </modules>
 
     <properties>
