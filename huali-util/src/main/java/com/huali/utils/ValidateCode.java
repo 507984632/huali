@@ -18,6 +18,7 @@ import java.util.Random;
  * </p>
  *
  * @author Yang_my
+ * @see IdentifyingCode 也是图片验证吗的东西
  * @since 2020/11/23
  */
 public class ValidateCode implements ImageType {
