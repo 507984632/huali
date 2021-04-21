@@ -58,8 +58,14 @@ public abstract class ExcelExportBase extends ExcelUtilBase {
 
     /**
      * 存储 sheet 的画图管理器
+     * Key: XSSFDrawing 的 HashCode 值(经测验，Key 是不会随着 sheet 的内容增多而改变值的)
+     * Value: XSSFDrawing 存储 sheet 的制图管理器() 因为这个东西一个sheet 就只能有一个
      */
-    private static final Map<Integer, XSSFDrawing> drawingMap = new ConcurrentHashMap<>();
+    private static final Map<Integer, XSSFDrawing> drawingMap;
+
+    static {
+        drawingMap = new ConcurrentHashMap<>();
+    }
 
     /**
      * 每一列列宽的乘数 因为每一列的列宽设置的跟excel中的单位不匹配,所以需要这个乘数
