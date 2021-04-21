@@ -3,14 +3,16 @@
 
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
     <property name="LOG_HOME" value="logs"/>
+    <!--项目名称-->
     <property name="ARTIFACT_ID" value="huali-redis"/>
+    <!--定义日志 格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+    <property name="LOG_FORMAT" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"/>
 
     <!-- 控制台输出 -->
     <appender name="Stdout" class="ch.qos.logback.core.ConsoleAppender">
         <!-- 日志输出编码 -->
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <pattern>${LOG_FORMAT}</pattern>
         </layout>
     </appender>
 
@@ -20,9 +22,9 @@
             <!--日志文件输出的文件名-->
             <!--<FileNamePattern>${LOG_HOME}/${project.artifactId}/%d{yyyy-MM-dd, aux}/%d{yyyy-MM-dd-HH}.%i.log-->
             <!--</FileNamePattern>-->
-            <FileNamePattern>${LOG_HOME}/${ARTIFACT_ID}/%d{yyyy-MM-dd, aux}/%d{yyyy-MM-dd-HH}.%i.log
-            </FileNamePattern>
-            <MaxHistory>336</MaxHistory>
+            <FileNamePattern>${LOG_HOME}/${ARTIFACT_ID}/%d{yyyy-MM-dd, aux}/%d{yyyy-MM-dd-HH}.%i.log</FileNamePattern>
+            <!--日志最大的历史天数-->
+            <MaxHistory>60</MaxHistory>
             <!--用来指定日志文件的上限大小，那么到了这个值，就会删除旧的日志-->
             <totalSizeCap>50GB</totalSizeCap>
             <MaxFileSize>50MB</MaxFileSize>
@@ -30,10 +32,18 @@
 
         <encoder>
             <charset>UTF-8</charset>
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
-            </pattern>
+            <pattern>${LOG_FORMAT}</pattern>
         </encoder>
+
+        <!--&lt;!&ndash; 将某个级别的日志写进文件中，其他级别则不进行记录 &ndash;&gt;
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            &lt;!&ndash; 过滤的级别 &ndash;&gt;
+            <level>INFO</level>
+            &lt;!&ndash; 匹配时的操作：接收（记录） &ndash;&gt;
+            <onMatch>ACCEPT</onMatch>
+            &lt;!&ndash; 不匹配时的操作：拒绝（不记录） &ndash;&gt;
+            <onMismatch>DENY</onMismatch>
+        </filter>-->
     </appender>
 
     <!-- 日志输出级别 -->

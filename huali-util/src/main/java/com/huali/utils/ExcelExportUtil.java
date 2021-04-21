@@ -70,7 +70,6 @@ public class ExcelExportUtil extends ExcelExportBase {
                 excelStyle.getTitleBackgroundColor(), excelStyle.getHeadBackgroundColor(), excelStyle.getDataBackgroundColor());
     }
 
-
     /**
      * 将查询出来的结果封装进 excel 中 有标题的
      *

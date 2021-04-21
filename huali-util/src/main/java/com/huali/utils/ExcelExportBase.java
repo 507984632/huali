@@ -16,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * <p>
@@ -58,7 +59,7 @@ public abstract class ExcelExportBase extends ExcelUtilBase {
     /**
      * 存储 sheet 的画图管理器
      */
-    private static Map<Integer, XSSFDrawing> drawingMap;
+    private static final Map<Integer, XSSFDrawing> drawingMap = new ConcurrentHashMap<>();
 
     /**
      * 每一列列宽的乘数 因为每一列的列宽设置的跟excel中的单位不匹配,所以需要这个乘数
@@ -66,6 +67,14 @@ public abstract class ExcelExportBase extends ExcelUtilBase {
      * 行高不必，可以直接写，没有换算
      */
     public static final int CHARACTER_SIZE = 256;
+    /**
+     * 最大的行数 取值范围在 0 ~ 1048575 之间 包括 0、1048575
+     */
+    public static final int ROW_MAX_NUM = 1048575;
+    /**
+     * 最大的列数 取值范围在 0 ~16383 之间 包括 0、16383
+     */
+    public static final int CELL_MAX_NUM = 16383;
 
     /**
      * 获得一个 workBook
@@ -105,6 +114,9 @@ public abstract class ExcelExportBase extends ExcelUtilBase {
      * @return 返回 excel 中的行对象
      */
     public static XSSFRow createSheetRow(XSSFSheet sheet, int rowNum) {
+        if (rowNum < 0 || rowNum > ROW_MAX_NUM) {
+            throw new RuntimeException("错误的行号 { " + rowNum + " } 行号的取值范围在 0~1048575 之间");
+        }
         return sheet.createRow(rowNum);
     }
 
@@ -116,6 +128,9 @@ public abstract class ExcelExportBase extends ExcelUtilBase {
      * @return excel 列对象(某个行对象中的 列数为列号的列对象)
      */
     public static XSSFCell createSheetCell(XSSFRow row, int cellNum) {
+        if (cellNum < 0 || cellNum > CELL_MAX_NUM) {
+            throw new RuntimeException("错误的列号 { " + cellNum + " }, 发生在第 { " + row.getRowNum() + " } 行, 列号的取值范围在 0~16383 之间");
+        }
         return row.createCell(cellNum);
     }
 
@@ -275,7 +290,7 @@ public abstract class ExcelExportBase extends ExcelUtilBase {
         Integer endRowNum = imageArray.getEndRowNum();
         Integer endCellNum = imageArray.getEndCellNum();
         checkCoordinate(startRowNum, startCellNum, endRowNum, endCellNum);
-        /**
+        /*
          * 该构造函数有8个参数
          * 前四个参数是控制图片在单元格的位置，分别是图片距离单元格left，top，right，bottom的像素距离
          * 后四个参数为 起始列，起始行，结束列，结束行
@@ -312,6 +327,7 @@ public abstract class ExcelExportBase extends ExcelUtilBase {
         XSSFDrawing dp = drawingMap.get(sheet.hashCode());
         if (dp == null) {
             dp = sheet.createDrawingPatriarch();
+            drawingMap.put(sheet.hashCode(), dp);
         }
         return dp;
     }
@@ -327,7 +343,7 @@ public abstract class ExcelExportBase extends ExcelUtilBase {
     private static void checkCoordinate(Integer startRowNum, Integer startCellNum, Integer endRowNum, Integer endCellNum) {
         boolean check = startRowNum != null && startCellNum != null && endRowNum != null && endCellNum != null;
 
-        if (check || (startRowNum > endRowNum) || (startCellNum > endCellNum)) {
+        if (check && ((startRowNum > endRowNum) || (startCellNum > endCellNum))) {
             throw new RuntimeException("传入的图片坐标点有误，请检查: \n" +
                     "起始行坐标点：{" + startRowNum + "},\n" +
                     "起始列坐标点：{" + startCellNum + "},\n" +
@@ -339,21 +355,21 @@ public abstract class ExcelExportBase extends ExcelUtilBase {
     /**
      * 测试插入图片的方法
      *
-     * @throws IOException
+     * @throws IOException .
      */
     private static void testImage() throws IOException {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet();
 
         try (ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
-             FileOutputStream fos = new FileOutputStream(new File("C:\\Users\\Administrator\\Desktop\\files\\testImage.xlsx"))) {
+             FileOutputStream fos = new FileOutputStream("C:\\Users\\Administrator\\Desktop\\files\\testImage.xlsx")) {
 
             BufferedImage bufferImg = ImageIO.read(new File("C:\\Users\\Administrator\\Desktop\\files\\a.png"));
             ImageIO.write(bufferImg, "png", byteArrayOut);
 
             // 画图的顶级管理器，一个sheet只能获取一个（一定要注意这点）
             XSSFDrawing dp = sheet.createDrawingPatriarch();
-            /**
+            /*
              * 该构造函数有8个参数
              * 前四个参数是控制图片在单元格的位置，分别是图片距离单元格left，top，right，bottom的像素距离
              * 后四个参数为 起始列，起始行，结束列，结束行

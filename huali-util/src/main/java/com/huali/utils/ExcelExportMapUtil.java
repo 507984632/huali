@@ -4,9 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.exception.ExpressionRuntimeException;
 import com.huali.utils.model.ExcelStyle;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
@@ -45,36 +42,6 @@ public class ExcelExportMapUtil extends ExcelExportBase {
     }
 
     /**
-     * <p>
-     * ExcelExportMapUtil 单个列的参数对象
-     *
-     * @author Yang_my
-     * </p>
-     * @see ExcelExportMapUtil
-     * @since 2020/12/18
-     */
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Deprecated
-    public static class ExcelColumnParams {
-        /**
-         * 列名
-         */
-        private String columnName;
-
-        /**
-         * 列宽
-         */
-        private String columnWidthNum;
-
-        /**
-         * 单个单元格的样式对象
-         */
-        private ExcelStyle style;
-    }
-
-    /**
      * 将查询结果封装成 excel表 没有标题
      *
      * @param data   sql查询的结果
@@ -82,7 +49,6 @@ public class ExcelExportMapUtil extends ExcelExportBase {
      *               key：单个参数的路径(即如果想获得 data 某个元素中的 name 属性，key = name, 元素是一个对象，想要获得对象中的 age 则 key=【对象的元素名.age】)
      *               value：该单元格的参数信息 ExcelColumnParams
      * @return 封装好的excel
-     * @see ExcelColumnParams
      */
     public static XSSFWorkbook toExcelFile(List<?> data, LinkedHashMap<String, String> params) {
         return toExcelFile(data, params, null);
