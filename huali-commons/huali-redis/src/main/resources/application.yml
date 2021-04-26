@@ -27,23 +27,77 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://192.168.2.13:3306/huali?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=Asia/Shanghai&useSSL=false
+      url: jdbc:mysql://192.168.2.13:3306/huali?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
       username: root
-      password: 123456
-      # 默认 true 为 true 时 validationQuery 必须设为非空字符串
-      # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
-      test-on-borrow: false
+      # 开启加密过后的密文密码 通过命令获得的密文 password
+      password: e38iTiOyk76eESDa4cFMxd9Tgf51mOniwQwD4kp9ZlO42wy6nZAe8cLEPyGA4Y21k7ZumE2Frc5vdpkVjrSLKA==
+      # 配置密码加密
+      connect-properties:
+        # 是否开启密码加密
+        config.decrypt: true
+        # 开启的密码加密的公钥 通过 druid的jar
+        # 命令 java -cp druid.1.2.6.jar com.alibaba.druid.filter.config.ConfigTools 数据库密码 获得
+        # 这个就是 publicKey
+        config.decrypt.key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALGCc3w5ScBLeqm4mvvsTR4NIoDwwd3irn2PvEup4aY+bqoPl/cSboOykrPK4I3DAaHCWlFgb9h35i1gVAVzWXcCAwEAAQ==
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计
+      # 必须配置上config 才能对数据库密码加密生效
+      filters: stat,wall,slf4j,config
+      # druid连接池监控
+      stat-view-servlet:
+        # 是否开启监控页面  默认不开启
+        enabled: true
+        # 访问路径
+        url-pattern: /druid/*
+        # 是否重置数据源
+        reset-enable: true
+        # 是否允许？不明白什么意思 看这里理解就是允许那些ip访问
+        # allow: 127.0.0.1
+        # 登录监听页面的账号
+        login-username: admin
+        # 登录监听页面的密码
+        login-password: 123
+      # 排除一些静态资源，以提高效率
+      web-stat-filter:
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+      # 慢sql
+      filter:
+        stat:
+          # 是否开启慢sql
+          merge-sql: true
+          # 判断慢sql的标准时长
+          slow-sql-millis: 500
+      # 初始化时建立物理连接的个数
+      initial-size: 5
+      # 最大链接数
+      max-active: 30
+      # 最小的连接数
+      min-idle: 5
+      # 获取连接时最大等待时间，单位毫秒
+      max-wait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 连接保持空闲而不被驱逐的最小时间
+      min-evictable-idle-time-millis: 300000
+      # 用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，
+      # testOnBorrow、testOnReturn、testWhileIdle都不会起作用。
+      validation-query: SELECT 1
       # 默认 true 为 true 时 validationQuery 必须设为非空字符串
       # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
       test-while-idle: true
       # 默认 true 为 true 时 validationQuery 必须设为非空字符串
+      # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-on-borrow: false
+      # 默认 true 为 true 时 validationQuery 必须设为非空字符串
       # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
       test-on-return: false
-      # 用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，
-      # testOnBorrow、testOnReturn、testWhileIdle都不会起作用。
-      validation-query: select 1
+      # 是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
+      pool-prepared-statements: true
+      # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。
+      max-pool-prepared-statement-per-connection-size: 50
+      # 合并多个DruidDataSource的监控数据
+      use-global-data-source-stat: true
 
-mybatis:
+mybatis: #如果是 mybatis-plus 的话就直接该为 mybatis-plus 即可
   # 配置 mapper.xml 的路径 与 启动类中的 MapperScan 对应
   mapper-locations: classpath:**/**Mapper.xml
   # 配置 实体类 的路径 配置之后 mapper.xml 中 关于实体类的地方就可以不用写 完全限定名了

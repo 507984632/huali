@@ -1,10 +1,14 @@
 package com.huali.utils;
 
+import lombok.SneakyThrows;
+
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -207,6 +211,33 @@ public class FileUtil {
                 }
             }
         }
+    }
+
+    /**
+     * 像某个文件中写入信息
+     * 不会写入最后
+     *
+     * @param info     写入的信息
+     * @param filePath 文件路径
+     */
+    @SneakyThrows
+    public static void writer(List<String> info, String filePath) {
+        FileWriter writer = new FileWriter(filePath);
+        for (String message : info) {
+            writer.write(message + "\n");
+        }
+        writer.flush();
+        writer.close();
+    }
+
+    /**
+     * 获得项目根目录
+     *
+     * @return 项目根目录
+     */
+    @SneakyThrows
+    public static String getProjectRootDirectory() {
+        return new File("").getCanonicalPath();
     }
 
 }
