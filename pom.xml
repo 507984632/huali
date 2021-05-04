@@ -47,6 +47,7 @@
         <uasparser.version>0.6.2</uasparser.version>
         <jackson-annotations.version>2.11.3</jackson-annotations.version>
         <zxing.version>3.4.0</zxing.version>
+        <jasypt-spring-boot.version>3.0.3</jasypt-spring-boot.version>
     </properties>
 
     <dependencyManagement>
@@ -235,6 +236,13 @@
                 <groupId>com.google.zxing</groupId>
                 <artifactId>javase</artifactId>
                 <version>${zxing.version}</version>
+            </dependency>
+
+            <!--项目配置文件内容加密技术-->
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot</artifactId>
+                <version>${jasypt-spring-boot.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
