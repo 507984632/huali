@@ -245,7 +245,7 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
-        <!--配置文件处理器-->
+        <!--配置文件处理器 用来处理 @ConfigurationProperties 注解在项目中提示的问题-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
