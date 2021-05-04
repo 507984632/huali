@@ -7,7 +7,6 @@ import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -159,6 +158,7 @@ public class FileUtil {
      *
      * @param fromPath 来源地址的根目录
      * @param aimsPath 目标地址的根目录
+     * @param del      是否删除源文件
      */
     public static void copyAll(String fromPath, String aimsPath, boolean del) {
         try {
@@ -181,6 +181,7 @@ public class FileUtil {
      * @param temp     当前文件(可能是文件夹或者文件)
      * @param path     当前文件的新增路径
      * @param aimsPath 目标地址
+     * @param del      是否删除源文件
      * @throws IOException .
      */
     private static void copyFile(File temp, String path, String aimsPath, boolean del) throws IOException {
@@ -191,7 +192,7 @@ public class FileUtil {
             if (file.isDirectory()) {
                 File copy = new File(newFileName);
                 if (!copy.exists()) {
-                    copy.mkdirs();
+                    boolean mkdirs = copy.mkdirs();
                 }
                 copyFile(file, path + fileName + "\\", aimsPath, del);
             } else {
